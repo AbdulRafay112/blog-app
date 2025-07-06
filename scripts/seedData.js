@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config()
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/lifevibe-blog", {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
