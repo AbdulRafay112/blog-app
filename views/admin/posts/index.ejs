@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>LifeVibe CMS</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin/dashboard">Dashboard</a></li>
+                    <li><a href="/admin/posts" class="active">Posts</a></li>
+                    <li><a href="/admin/posts/new">New Post</a></li>
+                    <li><a href="/" target="_blank">View Site</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <form action="/admin/logout" method="POST">
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Manage Posts</h1>
+                <a href="/admin/posts/new" class="btn btn-primary">Create New Post</a>
+            </header>
+
+            <div class="posts-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Author</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% posts.forEach(post => { %>
+                            <tr>
+                                <td><%= post.title %></td>
+                                <td><%= post.category %></td>
+                                <td><%= post.author %></td>
+                                <td>
+                                    <span class="status <%= post.published ? 'published' : 'draft' %>">
+                                        <%= post.published ? 'Published' : 'Draft' %>
+                                    </span>
+                                </td>
+                                <td><%= moment(post.createdAt).format('MMM DD, YYYY') %></td>
+                                <td class="actions">
+                                    <a href="/admin/posts/<%= post._id %>/edit" class="btn-edit">Edit</a>
+                                    <form action="/admin/posts/<%= post._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                        <button type="submit" class="btn-delete" onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+
+            <% if (totalPages > 1) { %>
+                <div class="pagination">
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                        <a href="/admin/posts?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+                    <% } %>
+                </div>
+            <% } %>
+        </main>
+    </div>
+</body>
+</html>

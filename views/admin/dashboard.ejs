@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>LifeVibe CMS</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin/dashboard" class="active">Dashboard</a></li>
+                    <li><a href="/admin/posts">Posts</a></li>
+                    <li><a href="/admin/posts/new">New Post</a></li>
+                    <li><a href="/" target="_blank">View Site</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <form action="/admin/logout" method="POST">
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Dashboard</h1>
+                <p>Welcome back, <%= user.username %>!</p>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Posts</h3>
+                    <div class="stat-number"><%= stats.totalPosts %></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Published</h3>
+                    <div class="stat-number"><%= stats.publishedPosts %></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Drafts</h3>
+                    <div class="stat-number"><%= stats.draftPosts %></div>
+                </div>
+            </div>
+
+            <div class="recent-posts">
+                <h2>Recent Posts</h2>
+                <div class="posts-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% recentPosts.forEach(post => { %>
+                                <tr>
+                                    <td><%= post.title %></td>
+                                    <td><%= post.category %></td>
+                                    <td>
+                                        <span class="status <%= post.published ? 'published' : 'draft' %>">
+                                            <%= post.published ? 'Published' : 'Draft' %>
+                                        </span>
+                                    </td>
+                                    <td><%= moment(post.createdAt).format('MMM DD, YYYY') %></td>
+                                    <td>
+                                        <a href="/admin/posts/<%= post._id %>/edit" class="btn-edit">Edit</a>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

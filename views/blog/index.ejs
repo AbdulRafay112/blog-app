@@ -1,0 +1,48 @@
+<%- contentFor('body') %>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Welcome to LifeVibe</h1>
+            <p>Discover inspiration for your lifestyle journey through travel, food, and wellness</p>
+        </div>
+    </div>
+</section>
+
+<section class="featured-posts">
+    <div class="container">
+        <h2>Latest Posts</h2>
+        <div class="posts-grid">
+            <% posts.forEach(post => { %>
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="<%= post.featuredImage %>" alt="<%= post.title %>">
+                        <span class="post-category"><%= post.category %></span>
+                    </div>
+                    <div class="post-content">
+                        <h3><a href="/post/<%= post.slug %>"><%= post.title %></a></h3>
+                        <p class="post-excerpt"><%= post.excerpt %></p>
+                        <div class="post-meta">
+                            <span class="post-author">By <%= post.author %></span>
+                            <span class="post-date"><%= moment(post.publishedAt).format('MMM DD, YYYY') %></span>
+                        </div>
+                    </div>
+                </article>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+<section class="categories-section">
+    <div class="container">
+        <h2>Explore Categories</h2>
+        <div class="categories-grid">
+            <% categories.forEach(category => { %>
+                <div class="category-card">
+                    <h3><%= category %></h3>
+                    <a href="/category/<%= category %>" class="category-link">Explore <%= category %></a>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>

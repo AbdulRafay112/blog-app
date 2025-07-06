@@ -1,0 +1,54 @@
+<%- contentFor('body') %>
+
+<article class="single-post">
+    <div class="container">
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="post-category"><%= post.category %></span>
+                <span class="post-date"><%= moment(post.publishedAt).format('MMMM DD, YYYY') %></span>
+            </div>
+            <h1 class="post-title"><%= post.title %></h1>
+            <p class="post-author">By <%= post.author %></p>
+        </header>
+
+        <div class="post-featured-image">
+            <img src="<%= post.featuredImage %>" alt="<%= post.title %>">
+        </div>
+
+        <div class="post-content">
+            <%- post.content.replace(/\n/g, '<br>') %>
+        </div>
+
+        <footer class="post-footer">
+            <div class="post-tags">
+                <span class="tag"><%= post.category %></span>
+            </div>
+        </footer>
+    </div>
+</article>
+
+<% if (relatedPosts.length > 0) { %>
+<section class="related-posts">
+    <div class="container">
+        <h2>Related Posts</h2>
+        <div class="posts-grid">
+            <% relatedPosts.forEach(post => { %>
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="<%= post.featuredImage %>" alt="<%= post.title %>">
+                        <span class="post-category"><%= post.category %></span>
+                    </div>
+                    <div class="post-content">
+                        <h3><a href="/post/<%= post.slug %>"><%= post.title %></a></h3>
+                        <p class="post-excerpt"><%= post.excerpt %></p>
+                        <div class="post-meta">
+                            <span class="post-author">By <%= post.author %></span>
+                            <span class="post-date"><%= moment(post.publishedAt).format('MMM DD, YYYY') %></span>
+                        </div>
+                    </div>
+                </article>
+            <% }) %>
+        </div>
+    </div>
+</section>
+<% } %>

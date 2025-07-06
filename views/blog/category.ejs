@@ -1,0 +1,38 @@
+<%- contentFor('body') %>
+
+<section class="category-hero">
+    <div class="container">
+        <h1><%= category %> Posts</h1>
+        <p>Explore our latest <%= category.toLowerCase() %> content</p>
+    </div>
+</section>
+
+<section class="category-posts">
+    <div class="container">
+        <% if (posts.length > 0) { %>
+            <div class="posts-grid">
+                <% posts.forEach(post => { %>
+                    <article class="post-card">
+                        <div class="post-image">
+                            <img src="<%= post.featuredImage %>" alt="<%= post.title %>">
+                            <span class="post-category"><%= post.category %></span>
+                        </div>
+                        <div class="post-content">
+                            <h3><a href="/post/<%= post.slug %>"><%= post.title %></a></h3>
+                            <p class="post-excerpt"><%= post.excerpt %></p>
+                            <div class="post-meta">
+                                <span class="post-author">By <%= post.author %></span>
+                                <span class="post-date"><%= moment(post.publishedAt).format('MMM DD, YYYY') %></span>
+                            </div>
+                        </div>
+                    </article>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="no-posts">
+                <h2>No posts found in this category</h2>
+                <p>Check back later for new content!</p>
+            </div>
+        <% } %>
+    </div>
+</section>

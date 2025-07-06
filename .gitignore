@@ -1,0 +1,23 @@
+Node.js dependencies
+
+node_modules/
+
+Environment variables
+
+.env.local .env.development.local .env.test.local .env.production.local .env
+
+Logs
+
+logs .log npm-debug.logyarn-debug.log* yarn-error.log*
+
+Runtime data
+
+pids *.pid *.seed *.pid.lock
+
+Build output
+
+dist/ build/
+
+Miscellaneous
+
+.DS_Store *.swp *.swo coverage/
