@@ -20,4 +20,4 @@ dist/ build/
 
 Miscellaneous
 
-.DS_Store *.swp *.swo coverage/
+.DS_Store *.swp *.swo coverage/".env.local" 
